@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa Prediction</title>
+</head>
+
+<body>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <br><br>
+    <div class="mt-10 sm:mt-0">
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+            <div class="md:col-span-4">
+                <div class="px-4 sm:px-0">
+                    <h3 style="text-align:center; font-size:40px; color:blue; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Classfication of a Work Visa Approval</h3>
+                </div>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-4">
+                <form action="{% url 'predict' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="shadow overflow-hidden sm:rounded-md">
+                        <div class="px-4 py-5 bg-gray-200 sm:p-9">
+                            <h3 style="text-align:center; font-size:20px; color:green; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">For null values input 'nan' or leave field blank.</h3>
+                            <div class="grid grid-cols-6 gap-6">
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="new_emp" class="block text-sm font-medium text-black-700">New Employment:</label>
+                                    <input type="text" name="new_emp" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-black-500 focus:border-black-500 block w-full h-10 shadow border-black-300 rounded-md">
+                                </div>                                
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="new_concurrent_emp" class="block text-sm font-medium text-black-700">New Concurrent Employment:</label>
+                                    <input type="text" name="new_concurrent_emp" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-black-500 focus:border-black-500 block w-full h-10 shadow border-black-300 rounded-md">
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="change_pre_emp" class="block text-sm font-medium text-black-700">Change Previous Employment:</label>
+                                    <input type="text" name="change_pre_emp" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-black-500 focus:border-black-500 block w-full h-10 shadow border-black-300 rounded-md">
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="continued_emp" class="block text-sm font-medium text-black-700">Continued Employment:</label>
+                                    <input type="text" name="continued_emp" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-black-500 focus:border-black-500 block w-full h-10 shadow border-black-300 rounded-md">
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="amended" class="block text-sm font-medium text-black-700">Amended Petition:</label>
+                                    <input type="text" name="amended" id="founded-at" autocomplete="given-name" class="mt-1 focus:ring-black-500 focus:border-black-500 block w-full h-10 shadow border-black-300 rounded-md">
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="change_emp" class="block text-sm font-medium text-black-700">Change Employer: </label>
+                                    <input type="text" name="change_emp" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-black-500 focus:border-black-500 block w-full h-10 shadow border-black-300 rounded-md">
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="totalWorkers" class="block text-sm font-medium text-black-700">Total Workers Position:</label>
+                                    <input type="text" name="totalWorkers" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-black-500 focus:border-black-500 block w-full h-10 shadow border-black-300 rounded-md">
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="wage_unit" class="block text-sm font-medium text-gray-700">Wage Unit of Pay</label>
+                                    <select id="country" name="wage_unit" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <option>NaN</option>
+                                        <option>Hour</option>
+                                        <option>Year</option>
+                                        <option>Month</option>
+                                        <option>Bi-Weekly</option>
+                                        <option>Week</option>
+                                    </select>
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="full_time_position" class="block text-sm font-medium text-black-700">Full Time Position:</label>
+                                    <label for="age1" class="text-sm font-medium text-black-700">Yes
+                                    <input type="radio" name="full_time_position" id="first-name" value="Y"></label> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label for="age1" class="text-sm font-medium text-black-700">No
+                                    <input type="radio" name="full_time_position" id="first-name" value="N"></label> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label for="age1" class="text-sm font-medium text-black-700">NaN
+                                    <input type="radio" name="full_time_position" id="first-name" value="nan" checked="checked"></label><br>
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="secondary_entity" class="block text-sm font-medium text-black-700">Secondary Entity:</label>
+                                    <label for="age1" class="text-sm font-medium text-black-700">Yes
+                                    <input type="radio" name="secondary_entity" id="first-name" value="Y"></label> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label for="age1" class="text-sm font-medium text-black-700">No
+                                    <input type="radio" name="secondary_entity" id="first-name" value="N"></label> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label for="age1" class="text-sm font-medium text-black-700">NaN
+                                    <input type="radio" name="secondary_entity" id="first-name" value="nan" checked="checked"></label> 
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="agent_representing" class="block text-sm font-medium text-black-700">Agent Representing Employer:</label>
+                                    <label for="age1" class="text-sm font-medium text-black-700">Yes
+                                        <input type="radio" name="agent_rep_emp" id="first-name" value="Y"></label> &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label for="age1" class="text-sm font-medium text-black-700">No
+                                        <input type="radio" name="agent_rep_emp" id="first-name" value="N"></label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label for="age1" class="text-sm font-medium text-black-700">NaN
+                                        <input type="radio" name="agent_rep_emp" id="first-name" value="nan" checked="checked"></label> 
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="h1b_Dependent" class="block text-sm font-medium text-black-700">H-1B Dependent:</label>
+                                    <label for="age1" class="text-sm font-medium text-black-700">Yes
+                                        <input type="radio" name="h1b_Dependent" id="first-name" value="Y"></label> &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label for="age1" class="text-sm font-medium text-black-700">No
+                                        <input type="radio" name="h1b_Dependent" id="first-name" value="N"></label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label for="age1" class="text-sm font-medium text-black-700">NaN
+                                        <input type="radio" name="h1b_Dependent" id="first-name" value="nan" checked="checked"></label> 
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="willful_valid" class="block text-sm font-medium text-black-700">Willful Violator:</label>
+                                    <label for="age1" class="text-sm font-medium text-black-700">Yes
+                                        <input type="radio" name="willful_valid" id="first-name" value="Y"></label> &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label for="age1" class="text-sm font-medium text-black-700">No
+                                        <input type="radio" name="willful_valid" id="first-name" value="N"></label> &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label for="age1" class="text-sm font-medium text-black-700">NaN
+                                        <input type="radio" name="willful_valid" id="first-name" value="nan" checked="checked"></label> 
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="wage_rate_from" class="block text-sm font-medium text-black-700">Wage Rate Of Pay From:</label>
+                                    <input type="text" name="wage_rate_from" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-black-500 focus:border-black-500 block w-full h-10 shadow border-black-300 rounded-md">
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="wage_rate_to" class="block text-sm font-medium text-black-700">Wage Rate Of Pay To:</label>
+                                    <input type="text" name="wage_rate_to" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-black-500 focus:border-black-500 block w-full h-10 shadow border-black-300 rounded-md">
+                                </div>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="Prevailing_wage" class="block text-sm font-medium text-black-700">Prevailing Wage:</label>
+                                    <input type="text" name="Prevailing_wage" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-black-500 focus:border-black-500 block w-full h-10 shadow border-black-300 rounded-md">
+                                </div>
+                                <div class="px-4 py-3 bg-gray-200 text-right sm:px-6">
+                                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" style="margin-left: 390%;">Submit</button>
+                                </div>
+                                
+                                <div class="col-span-12 sm:col-span-6">
+                                    <label for="totalWorkers" class="block text-bg font-medium text-black-700">Output:</label>
+                                    <h3 style="text-align:center; color:black; font-size:30px; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">{{ prediction }}</h3>
+                                    <h3 style="text-align:center; color:black; font-size:30px; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">{{ prediction_prob }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</body>
